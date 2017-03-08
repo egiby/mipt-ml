@@ -95,7 +95,7 @@ class Node:
 
 
 class DecisionTree:
-    def __init__(self, max_depth=5, min_items=5):
+    def __init__(self, max_depth=3, min_items=5):
         self.root = Node(self)
         self.X = None
         self.y = None
