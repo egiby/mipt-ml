@@ -10,6 +10,7 @@ def load_CIFAR_batch(filename):
     Y = datadict['labels']
     X = X.reshape(10000, 3, 32, 32).astype("float")
     Y = np.array(Y)
+    
     return X, Y
 
 def load_CIFAR10(ROOT):
@@ -21,10 +22,12 @@ def load_CIFAR10(ROOT):
     X, Y = load_CIFAR_batch(f)
     xs.append(X)
     ys.append(Y)    
-  Xtr = np.concatenate(xs[:-1])
-  Ytr = np.concatenate(ys[:-1])
-  Xva = xs[-1]
-  Yva = ys[-1]
+  Xtr = np.concatenate(xs)
+  Ytr = np.concatenate(ys)
   del X, Y
   Xte, Yte = load_CIFAR_batch(os.path.join(ROOT, 'test_batch'))
-  return Xtr, Ytr, Xva, Yva, Xte, Yte
+  
+  pixel_mean = np.mean(Xte, axis=0)
+  #Xtr -= pixel_mean
+  #Xte -= pixel_mean
+  return Xtr, Ytr, Xte, Yte
